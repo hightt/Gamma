@@ -212,3 +212,9 @@ img {
 {
     cursor: pointer;
 }
+.main-footer
+{
+    -webkit-box-shadow: 0px -3px 9px -3px rgba(206, 206, 206, 1);
+    -moz-box-shadow: 0px -3px 9px -3px rgba(206, 206, 206, 1);
+    box-shadow: 0px -3px 9px -3px rgba(206, 206, 206, 1);
+}
