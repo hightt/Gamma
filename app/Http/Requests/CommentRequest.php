@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommentRequest extends FormRequest
@@ -25,7 +25,7 @@ class CommentRequest extends FormRequest
         }
 
         return [
-            'content' => 'required|max:255',
+            'content' => Auth::check() ? 'max:255' : 'required|max:255',
             'user_id' => 'required',
         ];
     }
