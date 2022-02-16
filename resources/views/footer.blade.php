@@ -1,5 +1,12 @@
-<footer class="footer">
-    <div class="container">
-      <span class="text-muted">Place sticky footer content here.</span>
+<footer class="main-footer footer mt-auto py-3 bg-light">
+    <div class="container-fluid">
+     <div class="row">
+         <div class="col-6">
+
+         </div>
+         <div class="col-6">
+
+         </div>
+     </div>
     </div>
   </footer>

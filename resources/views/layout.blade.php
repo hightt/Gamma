@@ -87,6 +87,7 @@
             </div>
         </div>
     </div>
+    @include('footer')
 
     @include('modals.new_post_modal')
     @include('modals.register_modal')
