@@ -65,7 +65,7 @@
         <div class="row">
             <div class="col-lg-12 text-end add-button">
                 @if(Request::url() === asset("/posts"))
-                    <button type="button" class="btn btn-primary ps-3 pe-3 me-md-3 me-lg-0 new-post" data-bs-toggle="modal" data-bs-target="#add_post" style="opacity: 0.90;">
+                    <button type="button" class="btn btn-secondary ps-3 pe-3 me-md-3 me-lg-0 new-post" data-bs-toggle="modal" data-bs-target="#add_post" style="opacity: 0.90;">
                         <span>Opublikuj nowy post</span>
                         <i class="ms-2 fas fa-plus"></i>
                     </button>
