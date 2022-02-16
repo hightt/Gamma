@@ -1,6 +1,6 @@
 
 <div class="content">
-    <h6 class="best-users-title">Najbardziej aktywni użytkownicy</h6>
+    <h6 class="best-users-title text-center">Najbardziej aktywni użytkownicy</h6>
     <hr>
     <nav class="nav flex-column">
         <a class="nav-link" href="#">
