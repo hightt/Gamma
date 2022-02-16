@@ -31,18 +31,16 @@
                     </div>
                 </div>
 
-                <div class="">
-                    <div class="row">
-                        <div class="col-lg-4 text-start">
-                            <button id="register-button" type="button" class="btn btn-success ps-3 pe-3 me-md-3 me-lg-0">
-                                <span>Zarejestruj się</span>
-                            </button>
-                        </div>
-                        <div class="col-lg-8 text-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                            <button type="submit" class="btn btn-primary">Zaloguj się</button>
+                <div class="row">
+                    <div class="col-lg-4 text-start">
+                        <button id="register-button" type="button" class="btn btn-success ps-3 pe-3 me-md-3 me-lg-0">
+                            <span>Zarejestruj się</span>
+                        </button>
+                    </div>
+                    <div class="col-lg-8 text-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                        <button type="submit" class="btn btn-primary">Zaloguj się</button>
 
-                        </div>
                     </div>
                 </div>
             </form>
@@ -50,28 +48,16 @@
       </div>
     </div>
   </div>
+
+@if ($errors->any())
+    <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#login').modal('show');
+        });
+    </script>
+@endif
+
 <script>
-    $("#submit-form").click(function(e){
-        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-        e.stopImmediatePropagation();
-        e.preventDefault();
-        var formData = {
-            title: $("#title").val(),
-            content: $("#content").val(),
-        };
-            $.ajax({
-            type: "POST",
-            url: '{{route("posts.store")}}',
-            data: formData,
-            success:function(response){
-                $('#add_post').modal('hide');
-                location.reload();
-            },
-            error: function(response) {
-                // showMessage('alert-error', response.responseJson);
-            },
-        })
-    });
 
     $("#register-button").click(function() {
     $("#login").modal('hide');
