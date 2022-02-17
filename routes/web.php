@@ -23,5 +23,6 @@ Route::resource('/comments', CommentsController::class);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/search', [PostsController::class, 'search']);
 Route::get('/my-topics', [PostsController::class, 'myTopics']);
+Route::get('/my-answers', [PostsController::class, 'myAnswers']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
