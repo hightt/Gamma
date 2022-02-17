@@ -120,6 +120,14 @@ class PostsController extends Controller
 
     public function myTopics()
     {
-        return view('index')->with('posts', Post::where('user_id', Auth::user()->id)->paginate(10));
+        return view('index')
+        ->with('posts', Post::where('user_id', Auth::user()->id)->paginate(10))
+        ->with('user_comments', $this->countUsersComm());
+    }
+
+    public function myAnswers()
+    {
+
+        return view('index')->with('comments', User::find(Auth::user()->id)->comments()->get());
     }
 }
