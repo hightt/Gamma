@@ -12,6 +12,11 @@ class Comment extends Model
     protected $appends = ['author_name'];
     use HasFactory;
 
+    public function post()
+    {
+        return $this->belongsTo(Post::class, 'post_id', 'id');
+    }
+
     public function getAuthorNameAttribute()
     {
         return User::find($this->user_id)->name;
