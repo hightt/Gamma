@@ -106,4 +106,9 @@
         $("#alertBox").removeClass(type);
         }, 3000);
     }
+
+    $(document).ready(function() {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+});
+
 </script>
