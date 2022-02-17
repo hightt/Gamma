@@ -17,17 +17,17 @@
              <div class="content ms-2">
                 <span class="fw-bold">Kontakt</span>
                 <p class="text-muted m-0">
-                    <i class="fa-solid fa-envelope me-1"></i> konrad.duda121@gmail.com
+                    <i class="fa-solid fa-envelope me-1 d-sm-block d-md-inline-block"></i> konrad.duda121@gmail.com
                 </p>
                 <p class="text-muted m-0">
-                    <i class="fa-solid fa-phone me-1"></i> +48 123 456 789
+                    <i class="fa-solid fa-phone me-1 d-sm-block d-md-inline-block"></i> +48 123 456 789
                 </p>
                 <p class="text-muted m-0">
-                    <i class="fa-brands fa-facebook me-1"></i>
+                    <i class="fa-brands fa-facebook me-1 d-sm-block d-md-inline-block"></i>
                     <a href="https://www.facebook.com/konrad.duda.167"> Konrad Duda </a>
                 </p>
                 <p class="text-muted m-0">
-                    <i class="fa-brands fa-github me-1"></i>
+                    <i class="fa-brands fa-github me-1 d-xs-block d-md-inline-block"></i>
                     <a href="https://github.com/hightt"> hightt </a>
                 </p>
 

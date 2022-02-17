@@ -16,8 +16,8 @@
                                         </div>
                                         <div class="col-md-4 text-end">
                                             <div class="dropdown dropdown-options">
-                                                <button class="user-options post-options" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa-solid fa-ellipsis-vertical" style="font-size: 20px;"></i>
+                                                <button class="user-options post-options" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" >
+                                                    <i class="fa-solid fa-ellipsis-vertical" style="font-size: 20px;" ></i>
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                                     <li><a class="dropdown-item delete-submit" post_id="{{$post->id}}" id="delete-submit">Usuń post</a></li>
@@ -46,10 +46,10 @@
                                 {{-- <i class="fas fa-user-circle me-2"></i> --}}
                                 <span>Opublikowane przez  {{$post->user()->name}}</span>
                             </div>
-                            <div class="col-lg-3 col-md-6 text-end">
+                            <div class="col-lg-3 col-md-6 text-md-end text-sm-start">
                                 <span>@if($post->created_at != null) {{$post->created_at->format('Y-m-d H:i')}}@endif</span>
                             </div>
-                            <div class="col-lg-3 col-md-12 text-end">
+                            <div class="col-lg-3 col-md-12 text-md-end text-sm-start">
                                 <i class="far fa-comment"></i>
                                 <span>{{$post->comments()->count()}}</span>
                             </div>
