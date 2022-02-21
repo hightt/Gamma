@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="alert alert-fixed" id="alertBox" role="alert"></div>
+    <div class="alert alert-fixed" id="alertBoxjQuery" role="alert"></div>
     <div class="container-fluid p-0 m-0">
         <div class="row">
             <nav class="main-navbar pt-3 pb-3">
@@ -88,27 +88,21 @@
         </div>
     </div>
     @include('footer')
-
     @include('modals.new_post_modal')
     @include('modals.register_modal')
     @include('modals.login_modal')
+
+    @error('user_id')
+        <div class="alert alert-danger" id="alertBox" role="alert">Nie jesteś zalogowany.</div>
+    @enderror
+    <script>
+        $('#alertBox').delay(2500).fadeOut('slow');
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+
   </body>
 </html>
-
-<script>
-
-    function showMessage(type, text){
-        $("#alertBox").addClass(type);
-        $("#alertBox").text(text);
-        $("#alertBox").show();
-        setTimeout(function() {
-        $('#alertBox').fadeOut('fast');
-        $("#alertBox").removeClass(type);
-        }, 3000);
-    }
-
-    $(document).ready(function() {
-    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
-});
-
-</script>

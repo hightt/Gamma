@@ -40,7 +40,6 @@
                     <div class="col-lg-8 text-end">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                         <button type="submit" class="btn btn-primary">Zaloguj się</button>
-
                     </div>
                 </div>
             </form>
@@ -48,19 +47,10 @@
       </div>
     </div>
   </div>
-
-@if ($errors->any())
-    <script type="text/javascript">
-        $(window).on('load',function(){
-            $('#login').modal('show');
-        });
-    </script>
-@endif
-
+{{--
 <script>
-
     $("#register-button").click(function() {
     $("#login").modal('hide');
     $("#register").modal('show');
 });
-</script>
+</script> --}}

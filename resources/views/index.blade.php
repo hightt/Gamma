@@ -64,32 +64,43 @@
     <div class="d-flex justify-content-center">
         {!! $posts->links() !!}
     </div>
-    <script>
-        $('.post-options').click(function() {return false; });
-        $('.delete-submit').click(function() {return false; });
 
-         $('.delete-submit').click(function (e) {
-            var postId = $(this).attr("post_id");
-            var url = '{{ route("posts.destroy", ":postId") }}';
-            url = url.replace(':postId', postId);
-            $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            e.preventDefault();
-            // e.stopImmediatePropagation();
-            var data = {
-                post_id: postId,
-            };
-            $.ajax({
-                type: "DELETE",
-                url: url,
-                data: data,
-                success:function(response){
-                    showMessage('alert-success', 'Pomyślnie usunięto post.');
-                    setInterval(function () { location.reload(); }, 1000);
-                },
-                error: function(response){
-                    showMessage('alert-danger', 'Błąd systemu.');
-                },
-            })
-        });
+    <script>
+
+    function showMessage(type, text){
+        $("#alertBoxjQuery").addClass(type);
+        $("#alertBoxjQuery").text(text);
+        $("#alertBoxjQuery").show();
+        setTimeout(function() {
+        $('#alertBoxjQuery').fadeOut('fast');
+        $("#alertBoxjQuery").removeClass(type);
+        }, 2500);
+    }
+
+    $('.post-options').click(function() {return false; });
+    $('.delete-submit').click(function() {return false; });
+
+        $('.delete-submit').click(function (e) {
+        var postId = $(this).attr("post_id");
+        var url = '{{ route("posts.destroy", ":postId") }}';
+        url = url.replace(':postId', postId);
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        e.preventDefault();
+        var data = {
+            post_id: postId,
+        };
+        $.ajax({
+            type: "DELETE",
+            url: url,
+            data: data,
+            success:function(response){
+                showMessage('alert-success', 'Pomyślnie usunięto post.');
+                setInterval(function () { location.reload(); }, 1000);
+            },
+            error: function(response){
+                showMessage('alert-danger', 'Błąd systemu.');
+            },
+        })
+    });
     </script>
 @endsection

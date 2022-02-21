@@ -5,43 +5,37 @@
           <h5 class="modal-title" id="exampleModalLabel">Dodaj nowy post</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <form>
+        <form action="{{route('posts.store')}}" method="POST">
+            @csrf
+            <div class="modal-body">
                 <div class="mb-3">
-                    <input type="text" id="title" name="title" class="form-control" placeholder="Tytuł..." id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="title" class="form-text">Tytuł posta</label>
+                    <input type="text" id="title" name="title" class="form-control @error('title') is-invalid @enderror" value="{{old('title')}}">
+
+                    @error('title')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control" id="content" name="content" placeholder="Treść posta..." rows="4" style="resize: none;"></textarea>
+                    <label for="title" class="form-text">Zawartość</label>
+                    <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="4" style="resize: none;"></textarea>
+                    @error('content')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                @enderror
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" id="submit-form" class="btn btn-primary">Dodaj</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                <input type="submit" class="btn btn-primary">
+            </div>
+        </form>
       </div>
     </div>
-  </div>
-<script>
-    $("#submit-form").click(function(e){
-        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-        e.stopImmediatePropagation();
-        e.preventDefault();
-        var formData = {
-            title: $("#title").val(),
-            content: $("#content").val(),
-        };
-            $.ajax({
-            type: "POST",
-            url: '{{route("posts.store")}}',
-            data: formData,
-            success:function(response){
-                $('#add_post').modal('hide');
-                location.reload();
-            },
-            error: function(response) {
-                showMessage('alert-danger', response.responseJSON.message);
-            },
-        })
-    });
-</script>
+    @if ($errors->any() && Route::currentRouteName() == 'posts.index')
+        <script type="text/javascript">
+            $(window).on('load',function(){
+                $('#add_post').modal('show');
+            });
+        </script>
+    @endif
+</div>
