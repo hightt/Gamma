@@ -198,9 +198,17 @@ img {
     cursor: default;
     opacity: 0.6;
   }
-  #alertBox{
+#alertBoxjQuery{
     z-index: 9999 !important;
     display: none;
+    position: absolute !important;
+    top: 2rem;
+    width: 250px;
+    left: calc(100% - 275px);
+}
+
+#alertBox {
+    z-index: 9999 !important;
     position: absolute !important;
     top: 2rem;
     width: 250px;
