@@ -20,17 +20,6 @@ class PostsController extends Controller
             ]);
     }
 
-    public function countUsersComm()
-    {
-        return collect(User::all())->map(function($item) {
-            return [
-                    'id' => $item->id,
-                    'num' => User::find($item->id)->comments()->count(),
-                    'user_name' => User::where('id', $item->id)->value("name")
-                ];
-        })->sortByDesc('num')->take(8)->values()->toArray();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -38,8 +27,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('index')->with('posts', Post::orderBy('created_at', 'DESC')->paginate(10))
-                            ->with('user_comments', $this->countUsersComm());
+        return view('index')->with('posts', Post::orderBy('created_at', 'DESC')->paginate(10));
     }
 
 
@@ -73,8 +61,7 @@ class PostsController extends Controller
     public function show(Post $post)
     {
         return view('post')->with('post', $post)
-                            ->with('comments', $post->comments()->orderBy('created_at', 'DESC')->paginate(5))
-                            ->with('user_comments', $this->countUsersComm());
+                            ->with('comments', $post->comments()->orderBy('created_at', 'DESC')->paginate(5));
     }
 
     /**
@@ -115,14 +102,13 @@ class PostsController extends Controller
     {
         $posts = Post::where('title', 'LIKE', '%'. $request->search_name .'%')
                     ->orWhere('content', 'LIKE', '%'. $request->search_name .'%')->paginate(10);
-        return view('index')->with('posts', $posts)->with('user_comments', $this->countUsersComm());
+        return view('index')->with('posts', $posts);
     }
 
     public function myTopics()
     {
         return view('index')
-        ->with('posts', Post::where('user_id', Auth::user()->id)->paginate(10))
-        ->with('user_comments', $this->countUsersComm());
+        ->with('posts', Post::where('user_id', Auth::user()->id)->paginate(10));
     }
 
     public function myAnswers()
