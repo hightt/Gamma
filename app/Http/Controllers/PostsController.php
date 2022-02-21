@@ -10,16 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class PostsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth')
-            ->only([
-                'destroy',
-                'store',
-                'update',
-            ]);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +17,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('index')->with('posts', Post::orderBy('created_at', 'DESC')->paginate(10));
+        return view('index');
     }
 
 
@@ -50,6 +40,7 @@ class PostsController extends Controller
     public function store(PostRequest $request)
     {
         Post::create(array_merge($request->only('title', 'content'), ['user_id' => Auth::user()->id]));
+        return redirect()->route('posts.index')->withInput();
     }
 
     /**
@@ -107,13 +98,11 @@ class PostsController extends Controller
 
     public function myTopics()
     {
-        return view('index')
-        ->with('posts', Post::where('user_id', Auth::user()->id)->paginate(10));
+        return view('index')->with('posts', Post::where('user_id', Auth::user()->id)->paginate(10));
     }
 
     public function myAnswers()
     {
-
         return view('index')->with('comments', User::find(Auth::user()->id)->comments()->get());
     }
 }
