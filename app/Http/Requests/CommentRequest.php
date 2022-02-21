@@ -18,15 +18,9 @@ class CommentRequest extends FormRequest
 
     public function rules()
     {
-        if (auth()->check()) {
-            return [
-                'content' => 'required|max:255',
-            ];
-        }
-
         return [
-            'content' => Auth::check() ? 'max:255' : 'required|max:255',
-            'user_id' => 'required',
+            'content' => 'required|max:255',
+            'user_id' => Auth::check() ? '' : 'required',
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostRequest extends FormRequest
 {
@@ -16,15 +17,22 @@ class PostRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:64',
+            'content' => 'required',
+            'user_id' => Auth::check() ? '' : 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'user_id.required' => 'Nie jesteś zalogowany.',
+            'content.required' => 'Treść posta jest pusta.',
+            'title.required' => 'Brak tytułu.',
+            'title.max' => 'Tytuł posta jest zbyt długi (max: 64 znaków).',
         ];
     }
 }
