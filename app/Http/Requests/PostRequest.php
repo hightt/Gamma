@@ -20,8 +20,8 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:64',
-            'content' => 'required',
+            'post_title' => 'required|max:64',
+            'post_content' => 'required',
             'user_id' => Auth::check() ? '' : 'required',
         ];
     }
@@ -30,9 +30,9 @@ class PostRequest extends FormRequest
     {
         return [
             'user_id.required' => 'Nie jesteś zalogowany.',
-            'content.required' => 'Treść posta jest pusta.',
-            'title.required' => 'Brak tytułu.',
-            'title.max' => 'Tytuł posta jest zbyt długi (max: 64 znaków).',
+            'post_content.required' => 'Treść posta jest pusta.',
+            'post_title.required' => 'Brak tytułu.',
+            'post_title.max' => 'Tytuł posta jest zbyt długi (max: 64 znaków).',
         ];
     }
 }
