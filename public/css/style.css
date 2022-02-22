@@ -263,3 +263,16 @@ img {
     border-radius: 10px;
     border: none;
 }
+
+.fav-btn
+{
+    position: relative;
+    left: 20px;
+}
+.main-menu > a {
+    pointer-events: all !important;
+}
+.disabled-link
+{
+    opacity: 0.5;
+}
