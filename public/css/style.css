@@ -239,3 +239,20 @@ img {
 .main-footer p {
     font-size: 11px;
 }
+
+::-webkit-scrollbar {
+    width: 4px;
+    background-color: #FFFFFF;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.4);
+    background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(74, 130, 156, 0.50);
+    box-shadow: nset 0 0 6px rgba(74, 130, 156, 0.50);
+    background-color: #6f6f6e;
+}
