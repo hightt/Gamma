@@ -37,7 +37,7 @@
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
                 <div class="text-end mt-3">
-                    <input type="submit" value="Dodaj komentarz" class="btn btn-primary">
+                    <input type="submit" value="Dodaj komentarz" class="btn btn-secondary">
                 </div>
             </div>
         </form>
@@ -65,8 +65,12 @@
                                             <button class="user-options comment-options" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fa-solid fa-ellipsis-vertical" style="font-size: 20px;"></i>
                                             </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                <li><a class="dropdown-item delete-comment" comment_id="{{$comment->id}}" id="delete-submit">Usuń komentarz</a></li>
+                                            <ul class="dropdown-menu">
+                                                <form action="{{route('comments.destroy', $comment->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                   <input type="submit" value="Usuń komentarz" class="dropdown-item">
+                                                </form>
                                             </ul>
                                         </div>
                                     </div>

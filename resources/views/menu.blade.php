@@ -6,7 +6,7 @@
             <span>Strona główna</span>
         </a>
         <a class="nav-link mb-2" href="#">
-            <i class="fa-solid fa-star me-2" style="color: #FFEA00;"></i>
+            <i class="fa-solid fa-star me-2"></i>
             <span>Ulubione</span>
         </a>
         <a class="nav-link mb-2 {{Auth::check() ? '' : 'disabled'}}" href="{{asset('my-topics')}}">
