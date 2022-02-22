@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Schema\Builder;
 class PostsController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('index');
+        return view('index')->with('posts', Post::orderBy('created_at', 'DESC')->paginate(10));
     }
 
 
@@ -39,8 +40,8 @@ class PostsController extends Controller
      */
     public function store(PostRequest $request)
     {
-        Post::create(array_merge($request->only('title', 'content'), ['user_id' => Auth::user()->id]));
-        return redirect()->route('posts.index')->withInput();
+        Post::create(['title' => $request->post_title, 'content' => $request->post_content, 'user_id' => Auth::user()->id]);
+        return redirect()->route('posts.index')->withInput()->with('message', 'Pomyślnie dodano post!'); ;
     }
 
     /**
@@ -87,6 +88,7 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
        Post::destroy($post->id);
+       return redirect()->route('posts.index')->with('message', 'Pomyślnie usunięto post!'); ;
     }
 
     public function search(Request $request)
@@ -103,6 +105,10 @@ class PostsController extends Controller
 
     public function myAnswers()
     {
-        return view('index')->with('comments', User::find(Auth::user()->id)->comments()->get());
+        // pokaz posty ktore zawieraja komentarze aktualnie zalogowanego uzytkownika
+
+        return view('my_answers')
+        ->with('posts', Post::whereHas('comments')->get())
+        ->with('comments', User::find(Auth::user()->id)->comments()->get());
     }
 }

@@ -84,5 +84,6 @@ class CommentsController extends Controller
     public function destroy(Comment $comment)
     {
         Comment::destroy($comment->id);
+        return back()->with('message', 'Pomyślnie usunięto komentarz!'); ;
     }
 }
