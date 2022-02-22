@@ -13,7 +13,7 @@
                                     <i class="fa-solid fa-ellipsis-vertical" style="font-size: 20px;" ></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <form action="{{route('posts.destroy', $post->id)}}" method="DELETE">
+                                    <form action="{{route('posts.destroy', $post->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                        <input type="submit" value="Usuń post" class="dropdown-item">
