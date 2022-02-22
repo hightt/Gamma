@@ -28,9 +28,9 @@ class MainServiceProvider extends ServiceProvider
 
         View::share('best_users', $this->theMostActiveUsers());
 
-        View::composer('index', function($view) {
-            $view->with('posts', Post::orderBy('created_at', 'DESC')->paginate(10));
-        });
+        // View::composer('index', function($view) {
+        //     $view->with('posts', Post::orderBy('created_at', 'DESC')->paginate(10));
+        // });
     }
 
     public function theMostActiveUsers()
