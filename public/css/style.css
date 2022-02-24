@@ -276,3 +276,17 @@ img {
 {
     opacity: 0.5;
 }
+
+.disabled-link:hover
+{
+    cursor: default;
+}
+.btn-not-active
+{
+    opacity: 0.50;
+}
+#post-template
+{
+    display: none;
+    padding-top: 15px !important;
+}
