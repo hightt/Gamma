@@ -16,11 +16,11 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return view('index')->with('posts', Post::orderBy('created_at', 'DESC')->paginate(10));
+        return view('index');
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -41,7 +41,7 @@ class PostsController extends Controller
     public function store(PostRequest $request)
     {
         Post::create(['title' => $request->post_title, 'content' => $request->post_content, 'user_id' => Auth::user()->id]);
-        return redirect()->route('posts.index')->withInput()->with('message', 'Pomyślnie dodano post!'); ;
+        return back()->withInput()->with('message', 'Pomyślnie dodano post!'); ;
     }
 
     /**
@@ -88,7 +88,7 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
        Post::destroy($post->id);
-       return redirect()->route('posts.index')->with('message', 'Pomyślnie usunięto post!'); ;
+    //    return redirect()->route('posts.index')->with('message', 'Pomyślnie usunięto post!'); ;
     }
 
     public function search(Request $request)
@@ -106,7 +106,6 @@ class PostsController extends Controller
     public function myAnswers()
     {
         // pokaz posty ktore zawieraja komentarze aktualnie zalogowanego uzytkownika
-
         return view('my_answers')
         ->with('posts', Post::whereHas('comments')->get())
         ->with('comments', User::find(Auth::user()->id)->comments()->get());
