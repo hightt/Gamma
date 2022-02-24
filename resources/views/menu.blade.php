@@ -20,7 +20,7 @@
     </nav>
 </div>
 
-<script type="text/javascript">console.log('eee');
+<script type="text/javascript">
     $('.main-link').each(function(index,item){
         var classStr = $(this).attr('class');
         if(classStr.substr(classStr.lastIndexOf(' ') + 1) == 'disabled-link') {

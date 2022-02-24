@@ -1,6 +1,6 @@
 
 <div class="content">
-    <h6 class="best-users-title text-xl-center text-start">Najbardziej aktywni użytkownicy</h6>
+    <h6 class="best-users-title text-center">Najbardziej aktywni użytkownicy</h6>
     <hr>
     <nav class="nav flex-column">
         @for ($i = 0; $i < count($best_users); $i++)
