@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FavouritePostRequest;
 use App\Models\FavouritePost;
 use Illuminate\Http\Request;
-use GuzzleHttp\Psr7\Query;
+use App\Models\Post;
 class FavouritePostsController extends Controller
 {
     /**
@@ -15,7 +15,14 @@ class FavouritePostsController extends Controller
      */
     public function index()
     {
-        //
+        return view("sections.favourite_posts");
+        // return ['posts' => FavouritePost::myFavouritePosts()];
+    }
+
+    public function getPosts()
+    {
+        // return FavouritePost::myFavouritePosts()->pluck('post_id');
+        return response()->json(['posts' => Post::whereIn('id', FavouritePost::myFavouritePosts()->pluck('post_id'))->get()]);
     }
 
     /**
@@ -28,11 +35,11 @@ class FavouritePostsController extends Controller
     {
         if($favouritePost->checkIfExists($request->post_id)) { // create
             FavouritePost::where('post_id', $request->post_id)->where('user_id', $request->user_id)->delete();
-            $message = "Pomyślnie usunięto z ulubionych";
+            $message = "Pomyślnie usunięto z ulubionych.";
         }
         else { // delete
             FavouritePost::create($request->all());
-            $message = "Pomyślnie dodano do ulubionych";
+            $message = "Pomyślnie dodano do ulubionych.";
         }
         return response()->json(['success' => $message]);
 

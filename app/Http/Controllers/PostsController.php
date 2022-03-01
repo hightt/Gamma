@@ -17,7 +17,7 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
         return view('index');
     }
@@ -52,8 +52,8 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post')->with('post', $post)
-                            ->with('comments', $post->comments()->orderBy('created_at', 'DESC')->paginate(5));
+        return view('sections.post')->with('post', $post)
+            ->with('comments', $post->comments()->orderBy('created_at', 'DESC')->paginate(5));
     }
 
     /**
@@ -94,20 +94,26 @@ class PostsController extends Controller
     public function search(Request $request)
     {
         $posts = Post::where('title', 'LIKE', '%'. $request->search_name .'%')
-                    ->orWhere('content', 'LIKE', '%'. $request->search_name .'%')->paginate(10);
-        return view('index')->with('posts', $posts);
+            ->orWhere('content', 'LIKE', '%'. $request->search_name .'%')->paginate(10);
+        return back()->with('posts', $posts);
     }
 
-    public function myTopics()
+    public function myTopics(Request $request)
     {
-        return view('index')->with('posts', Post::where('user_id', Auth::user()->id)->paginate(10));
+        if($request->ajax()) {
+            return response()->json(['posts' => Post::where('user_id', Auth::user()->id)->get()]);
+        }
+        return view('sections.my_topics');
     }
 
     public function myAnswers()
     {
-        // pokaz posty ktore zawieraja komentarze aktualnie zalogowanego uzytkownika
-        return view('my_answers')
-        ->with('posts', Post::whereHas('comments')->get())
-        ->with('comments', User::find(Auth::user()->id)->comments()->get());
+        return view('sections.my_answers')
+            ->with('posts', Post::whereHas('comments')->get())
+            ->with('comments', User::find(Auth::user()->id)->comments()->get());
     }
+
+    // znajdz posty ktore zawieraja moje komentarze
+
+    // $comments = DB::table()
 }

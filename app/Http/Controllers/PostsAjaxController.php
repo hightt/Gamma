@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\FavouritePost;
 
 class PostsAjaxController extends Controller
 {
@@ -12,9 +13,12 @@ class PostsAjaxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-            return ['posts' => Post::orderBy('created_at', 'DESC')->get()];
+         $posts = Post::orderBy('created_at', 'DESC')->paginate(5);
+         if($request->ajax()) {
+            return response()->json(['posts' => $posts, 'favouritePosts' => FavouritePost::myFavouritePosts()]);
+         }
     }
 
     /**
