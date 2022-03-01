@@ -16,4 +16,13 @@ class FavouritePost extends Model
     {
         return $this->where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists();
     }
+
+    public function scopeMyFavouritePosts($query)
+    {
+        if(Auth::check()) {
+            return $query->where('user_id', Auth::user()->id)->get();
+        }
+        return null;
+
+    }
 }
