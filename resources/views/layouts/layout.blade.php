@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="alert alert-fixed" id="alertBoxjQuery" role="alert"></div>
+    <div class="alert" id="alertBox" role="alert"></div>
     <div class="container-fluid p-0 m-0">
         <div class="row">
             <nav class="main-navbar pt-3 pb-3">
@@ -76,17 +76,18 @@
     <div class="container-fluid w-75">
         <div class="row">
             <div class="col-xl-3 col-12 mb-3">
-                @include('menu')
+                @include('sections.menu')
             </div>
             <div class="col-xl-6 col-12 post-section">
+            <div id="posts-box"></div>
             @yield('content')
             </div>
             <div class="col-xl-3 col-12 col-4 mb-3">
-                @include('best_users')
+                @include('sections.best_users')
             </div>
         </div>
     </div>
-    @include('footer')
+    @include('sections.footer')
     @include('modals.new_post_modal')
     @include('modals.register_modal')
     @include('modals.login_modal')
@@ -100,11 +101,22 @@
     @endif
     <script>
         $('#alertBox').delay(2500).fadeOut('slow');
-
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
+        });
+
+        function showMessage(type, text){
+        $('#modalClose').click();
+        $('#newThreadEmail').val('');
+        $("#alertBox").addClass(type);
+        $("#alertBox").text(text);
+        $("#alertBox").show();
+        setTimeout(function() {
+            $('#alertBox').fadeOut('fast');
+            $("#alertBox").removeClass(type);
+        }, 3500);
+    }
     </script>
 
   </body>

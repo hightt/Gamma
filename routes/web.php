@@ -25,12 +25,13 @@ Route::resource('/posts', PostsController::class);
 Route::resource('/comments', CommentsController::class);
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/search', [PostsController::class, 'search']);
-Route::get('/my-topics', [PostsController::class, 'myTopics'])->middleware('auth');
+Route::get('/my-topics', [PostsController::class, 'myTopics'])->middleware('auth')->name('my-topics');
 Route::get('/my-answers', [PostsController::class, 'myAnswers'])->middleware('auth');
 
 Route::resource('/favourite-post', FavouritePostsController::class)->except([
     'create', 'update', 'show', 'edit', 'destroy'
 ]);
+Route::get('/favourite-post/get', [FavouritePostsController::class, 'getPosts'])->name('favourite-posts.get');
 
 Route::delete('/delete-fav', [FavouritePostsController::class, 'delete'])->name('favourite-posts.delete');
 

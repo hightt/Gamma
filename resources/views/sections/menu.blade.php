@@ -5,7 +5,7 @@
             <i class="fas fa-home me-2"></i>
             <span>Strona główna</span>
         </a>
-        <a class="nav-link mb-2 main-link" href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="">
+        <a class="nav-link mb-2 main-link" href="{{route('favourite-post.index')}}" data-bs-toggle="tooltip" data-bs-placement="left" title="">
             <i class="fa-solid fa-star me-2"></i>
             <span>Ulubione</span>
         </a>
