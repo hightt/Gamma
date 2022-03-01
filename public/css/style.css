@@ -198,20 +198,14 @@ img {
     cursor: default;
     opacity: 0.6;
   }
-#alertBoxjQuery{
-    z-index: 9999 !important;
-    display: none;
-    position: absolute !important;
-    top: 2rem;
-    width: 250px;
-    left: calc(100% - 275px);
-}
 
 #alertBox {
     z-index: 9999 !important;
     position: absolute !important;
+    display: none;
     top: 2rem;
     width: 250px;
+    font-size: 14px;
     left: calc(100% - 275px);
 }
 .post-section
@@ -264,10 +258,11 @@ img {
     border: none;
 }
 
-.fav-btn
+.btn-add, .btn-delete
 {
     position: relative;
     left: 20px;
+    min-height: 34px;
 }
 .main-menu > a {
     pointer-events: all !important;
@@ -288,5 +283,8 @@ img {
 #post-template
 {
     display: none;
-    padding-top: 15px !important;
+    padding-top: 15px;
+}
+.tooltip-inner {
+    max-width: 750px !important;
 }
