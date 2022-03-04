@@ -37,8 +37,13 @@ class CommentsController extends Controller
      */
     public function store(CommentRequest $request)
     {
-        Comment::create(array_merge($request->only('content', 'post_id'), ['user_id' => Auth::user()->id]));
-        return redirect()->route('posts.show', $request->post_id)->withInput();
+        if(Auth::check()) {
+            Comment::create(array_merge($request->only('content', 'post_id'), ['user_id' => Auth::user()->id]));
+            return redirect()->route('posts.show', $request->post_id)->withInput();
+        } else {
+            return response()->json(['message' => 'Nie jesteś zalogowany']);
+        }
+
     }
 
     /**
