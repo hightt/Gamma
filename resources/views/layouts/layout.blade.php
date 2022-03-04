@@ -30,14 +30,12 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-6">
-                        <form action="/search" method="GET">
-                            <div class="input-group mb-3 search-field w-75 mx-auto">
-                                <input type="text" name="search_name" class="form-control" value="{{ old('search_name') }}" placeholder="Wyszukaj post">
-                                <button class="btn" type="submit" id="button-addon2" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </form>
+                        <div class="input-group mb-3 search-field w-75 mx-auto">
+                            <input type="text" id="search_name" name="search_name" class="form-control" placeholder="Wyszukaj post">
+                            <button class="btn" id="button-addon2"style="pointer-events: none; opacity: 0.8;">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="col-lg-4 col-md-6 text-center">
                         @if(Auth::check())
@@ -59,31 +57,33 @@
             </nav>
         </div>
     </div>
-
-    <div class="container-fluid w-75 mt-3 mb-3">
-        <div class="row">
-            <div class="col-lg-12 text-end add-button">
-                @if(Request::url() === asset("/posts"))
-                    <button type="button" class="btn btn-secondary ps-3 pe-3 me-md-3 me-lg-0 new-post" data-bs-toggle="modal" data-bs-target="#add_post" style="opacity: 0.90;">
-                        <span>Opublikuj nowy post</span>
-                        <i class="ms-2 fas fa-plus"></i>
-                    </button>
-                @endif
+    <div class="container-fluid root">
+        <div class="container-fluid mt-3 mb-3">
+            <div class="row">
+                <div class="col-lg-12 text-end" style="min-height: 40px;">
+                    @if(Request::url() === asset("/posts"))
+                        <button type="button" class="btn btn-secondary m-0 {{Auth::check() ? '' : 'disabled-link'}}" @if(Auth::check()) data-bs-toggle="modal" data-bs-target="#add_post"  @endif
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="Musisz być zalogowany, aby przejść dalej" style="opacity: 0.90;">
+                            <span>Opublikuj nowy post</span>
+                            <i class="ms-2 fas fa-plus"></i>
+                        </button>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container-fluid w-75">
-        <div class="row">
-            <div class="col-xl-3 col-12 mb-3">
-                @include('sections.menu')
-            </div>
-            <div class="col-xl-6 col-12 post-section">
-            <div id="posts-box"></div>
-            @yield('content')
-            </div>
-            <div class="col-xl-3 col-12 col-4 mb-3">
-                @include('sections.best_users')
+        <div class="container-fluid main-content">
+            <div class="row">
+                <div class="col-xl-3 col-12 mb-3">
+                    @include('sections.menu')
+                </div>
+                <div class="col-xl-6 col-12 post-section">
+                <div id="posts-box"></div>
+                @yield('content')
+                </div>
+                <div class="col-xl-3 col-12 col-4 mb-3">
+                    @include('sections.best_users')
+                </div>
             </div>
         </div>
     </div>
@@ -95,29 +95,28 @@
     @error('user_id')
         <div class="alert alert-danger" id="alertBox" role="alert">Nie jesteś zalogowany.</div>
     @enderror
-
     @if(Session::has('message'))
         <div class="alert alert-success" id="alertBox" role="alert">{{ Session::get('message') }}</div>
     @endif
+
     <script>
         $('#alertBox').delay(2500).fadeOut('slow');
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
+            return new bootstrap.Tooltip(tooltipTriggerEl)
         });
 
         function showMessage(type, text){
-        $('#modalClose').click();
-        $('#newThreadEmail').val('');
-        $("#alertBox").addClass(type);
-        $("#alertBox").text(text);
-        $("#alertBox").show();
-        setTimeout(function() {
-            $('#alertBox').fadeOut('fast');
-            $("#alertBox").removeClass(type);
-        }, 3500);
-    }
+            $('#modalClose').click();
+            $('#newThreadEmail').val('');
+            $("#alertBox").addClass(type);
+            $("#alertBox").text(text);
+            $("#alertBox").show();
+            setTimeout(function() {
+                $('#alertBox').fadeOut('fast');
+                $("#alertBox").removeClass(type);
+            }, 3500);
+        }
     </script>
-
   </body>
 </html>
