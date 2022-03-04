@@ -22,7 +22,5 @@ class FavouritePost extends Model
         if(Auth::check()) {
             return $query->where('user_id', Auth::user()->id)->get();
         }
-        return null;
-
     }
 }
