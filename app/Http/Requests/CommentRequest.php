@@ -19,7 +19,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:255',
+            'content' => 'required|max:256',
             'user_id' => Auth::check() ? '' : 'required',
         ];
     }

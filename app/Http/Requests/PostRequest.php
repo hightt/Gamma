@@ -21,7 +21,7 @@ class PostRequest extends FormRequest
     {
         return [
             'post_title' => 'required|max:64',
-            'post_content' => 'required',
+            'post_content' => 'required|max:1024',
             'user_id' => Auth::check() ? '' : 'required',
         ];
     }
@@ -31,6 +31,7 @@ class PostRequest extends FormRequest
         return [
             'user_id.required' => 'Nie jesteś zalogowany.',
             'post_content.required' => 'Treść posta jest pusta.',
+            'post_content.max' => 'Zawartość jest zbyt długa (max: 1024 znaków).',
             'post_title.required' => 'Brak tytułu.',
             'post_title.max' => 'Tytuł posta jest zbyt długi (max: 64 znaków).',
         ];
