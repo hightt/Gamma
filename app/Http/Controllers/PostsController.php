@@ -8,7 +8,8 @@ use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Schema\Builder;
+// use Illuminate\Database\Schema\Builder;
+use Illuminate\Database\Eloquent\Builder;
 class PostsController extends Controller
 {
     /**
@@ -108,9 +109,12 @@ class PostsController extends Controller
 
     public function myAnswers()
     {
+        $posts = Post::whereHas('comments', function (Builder $query) {
+            $query->where('user_id', Auth::user()->id);
+        })->get();
+
         return view('sections.my_answers')
-            ->with('posts', Post::whereHas('comments')->get())
-            ->with('comments', User::find(Auth::user()->id)->comments()->get());
+            ->with('posts', $posts);
     }
 
     // znajdz posty ktore zawieraja moje komentarze
