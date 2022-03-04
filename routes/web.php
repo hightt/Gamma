@@ -20,20 +20,27 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+
 Route::resource('/posts', PostsController::class);
 Route::resource('/comments', CommentsController::class);
-Route::get('/logout', [LoginController::class, 'logout']);
-Route::get('/search', [PostsController::class, 'search']);
-Route::get('/my-topics', [PostsController::class, 'myTopics'])->middleware('auth')->name('my-topics');
-Route::get('/my-answers', [PostsController::class, 'myAnswers'])->middleware('auth');
 
-Route::resource('/favourite-post', FavouritePostsController::class)->except([
-    'create', 'update', 'show', 'edit', 'destroy'
-]);
+Route::resource('/favourite-post', FavouritePostsController::class)->except(['create', 'update', 'show', 'edit', 'destroy']);
 Route::get('/favourite-post/get', [FavouritePostsController::class, 'getPosts'])->name('favourite-posts.get');
 
-Route::delete('/delete-fav', [FavouritePostsController::class, 'delete'])->name('favourite-posts.delete');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/favourite-post', [FavouritePostsController::class, 'index'])->name('favourite-post.index');
+    Route::get('/my-answers', [PostsController::class, 'myAnswers'])->name('my-answers');
+    Route::get('/my-topics', [PostsController::class, 'myTopics'])->name('my-topics');
+});
 
+Route::resource('/posts-ajax', PostsAjaxController::class)->except(['create', 'update', 'edit', 'show', 'destroy']);
 Route::delete('/posts-ajax', [PostsAjaxController::class, 'destroy'])->name('posts-ajax.destroy');
-Route::resource('/posts-ajax', PostsAjaxController::class)->except('create', 'update', 'edit', 'show', 'destroy');
+
+Route::get('/search', [PostsController::class, 'search']);
+
+Auth::routes();
+Route::get('/logout', [LoginController::class, 'logout']);
+
+Route::get('/', function(){
+    return redirect(route('posts.index'));
+});

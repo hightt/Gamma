@@ -38,19 +38,23 @@ img {
     height: auto;
 }
 
-@media (min-width: 576px) {  }
+@media (min-width: 576px) {
+    .root {
+        width: 75% !important;
+    }
+}
 
-@media (max-width: 576px) {  }
+@media (max-width: 576px) {
+    .root {
+        width: 100% !important;
+    }
+}
 
 @media (min-width: 768px) {  }
 
 @media (max-width: 768px) {  }
 
 @media (min-width: 992px) {
-    .new-post
-    {
-        margin: 0 !important;
-    }
 }
 
 @media (max-width: 992px) {
@@ -89,7 +93,7 @@ img {
 .content
 {
     background-color: #FFF;
-    padding: 20px;
+    padding: 20px 10px;
     border-radius: 10px;
     border: none;
 }
@@ -171,10 +175,6 @@ img {
 .add-comment
 {
     background-color: #fff;
-}
-.add-button
-{
-    min-height: 40px;
 }
 
 .user-options
@@ -269,12 +269,12 @@ img {
 }
 .disabled-link
 {
-    opacity: 0.5;
+    opacity: 0.5 !important;
 }
 
 .disabled-link:hover
 {
-    cursor: default;
+    cursor: default !important;
 }
 .btn-not-active
 {
