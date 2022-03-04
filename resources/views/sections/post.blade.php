@@ -28,12 +28,15 @@
 
     <div class="row post ms-0 me-0" style="cursor: unset;">
         <h5 class="text-muted p-0">Dodaj nowy komentarz</h5>
-        <form class="p-0 m-0" action="{{route('comments.store')}}" method="POST">
+        <form class="p-0 m-0" action="{{route('comments.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <input type="hidden" name="post_id" value="{{$post->id}}">
                 <textarea class="form-control @error('content') is-invalid @enderror" id="content" placeholder="Treść komentarza" name="content" rows="4" style="resize: none;"></textarea>
                 @error('content')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                @enderror
+                @error('user_id')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
                 <div class="text-end mt-3">

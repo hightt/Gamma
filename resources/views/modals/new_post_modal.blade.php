@@ -19,8 +19,11 @@
                     <label for="post_content" class="form-text">Zawartość</label>
                     <textarea class="form-control @error('post_content') is-invalid @enderror"  id="post_content" name="post_content" rows="4" style="resize: none;"></textarea>
                     @error('post_content')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                    @error('user_id')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
-                @enderror
+                    @enderror
                 </div>
             </div>
             <div class="modal-footer">
@@ -30,12 +33,11 @@
         </form>
       </div>
     </div>
-    {{-- @if($errors->has('title') || $errors->has(''))
-    {{dd($errors)}}
+    @if($errors->has('post_title') || $errors->has('post_content') || $errors->has('user_id'))
         <script type="text/javascript">
             $(window).on('load',function(){
-                $('#add_post').modal('show');
+            $('#add_post').modal('show');
             });
         </script>
-    @endif --}}
+    @endif
 </div>
