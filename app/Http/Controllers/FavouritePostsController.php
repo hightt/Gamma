@@ -6,6 +6,7 @@ use App\Http\Requests\FavouritePostRequest;
 use App\Models\FavouritePost;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 class FavouritePostsController extends Controller
 {
     /**
@@ -16,13 +17,16 @@ class FavouritePostsController extends Controller
     public function index()
     {
         return view("sections.favourite_posts");
-        // return ['posts' => FavouritePost::myFavouritePosts()];
     }
 
     public function getPosts()
     {
-        // return FavouritePost::myFavouritePosts()->pluck('post_id');
-        return response()->json(['posts' => Post::whereIn('id', FavouritePost::myFavouritePosts()->pluck('post_id'))->get()]);
+        if(Auth::check()) {
+            $posts = Post::whereIn('id', FavouritePost::myFavouritePosts()->pluck('post_id'))->get();
+        } else {
+            $posts = null;
+        }
+        return response()->json(['posts' => $posts]);
     }
 
     /**
@@ -33,22 +37,15 @@ class FavouritePostsController extends Controller
      */
     public function store(FavouritePostRequest $request, FavouritePost $favouritePost)
     {
-        if($favouritePost->checkIfExists($request->post_id)) { // create
+        if($favouritePost->checkIfExists($request->post_id)) { // delete
             FavouritePost::where('post_id', $request->post_id)->where('user_id', $request->user_id)->delete();
             $message = "Pomyślnie usunięto z ulubionych.";
         }
-        else { // delete
+        else { // create
             FavouritePost::create($request->all());
             $message = "Pomyślnie dodano do ulubionych.";
         }
         return response()->json(['success' => $message]);
-
-    }
-
-    public function delete(Request $request)
-    {
-        // return $request;
-    //    return FavouritePost::where('user_id', $request->user_id)->where('post_id', $request->post_id)->get();
 
     }
 }
