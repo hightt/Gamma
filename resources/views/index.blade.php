@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 @section('content')
-    @include('layouts.post_template')
+    <section id="posts-box">
+        @include('layouts.post_template')
+    </section>
 
     <nav aria-label="Page navigation example">
         <div class="text-center">
@@ -10,9 +12,7 @@
               </ul>
         </div>
     </nav>
-
 <script>
-
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     var page = 1;
     function getPosts(page) {
@@ -22,22 +22,29 @@
             dataType: 'json',
             success: function(response){
                 $('#posts-box').empty();
-                for(i = 0; i < response.posts.data.length; i++){
-                    var post = response.posts.data[i];
-                    var el = $('#post-template').clone(true).appendTo('#posts-box');
-                    el.css("display", "block");
-                    el.find('.post-title').text(post.title);
-                    el.find('.post-content').text(post.content);
-                    el.find('.author').text(post.user.name);
-                    el.find('.post-created-at').text(post.formatted_created_at);
-                    el.find('.comment-num').text(post.comment_num);
-                    el.find('.btn-add').attr('post_id', post.id);
-                    el.find('.btn-add').attr('user_id', post.user_id);
-                    el.find('.btn-delete').attr('post_id', post.id);
-                    el.find('.btn-delete').attr('user_id', el.find('.btn-add').attr('user_id'));
-                    var url = '{{ route("posts.show", ":postId") }}';
-                    el.find('a').attr('href', url.replace(':postId', post.id));
+                if(response.posts.data.length > 0) {
+                    for(i = 0; i < response.posts.data.length; i++){
+                        var post = response.posts.data[i];
+                        var el = $('#post-template').clone(true).appendTo('#posts-box');
+                        el.css("display", "block");
+                        el.find('.post-title').text(post.title);
+                        el.find('.post-content').text(post.content);
+                        el.find('.author').text(post.user.name);
+                        el.find('.post-created-at').text(post.formatted_created_at);
+                        el.find('.comment-num').text(post.comment_num);
+                        el.find('.btn-add').attr('post_id', post.id);
+                        el.find('.btn-add').attr('user_id', post.user_id);
+                        el.find('.btn-delete').attr('post_id', post.id);
+                        el.find('.btn-delete').attr('user_id', el.find('.btn-add').attr('user_id'));
+                        var url = '{{ route("posts.show", ":postId") }}';
+                        el.find('a').attr('href', url.replace(':postId', post.id));
+                    }
+                } else {
+                    $("#next-page").hide();
+                    $("#previous-page").hide();
+                    $("#posts-box").html('<h3 class="text-center">Brak postów do wyświetlenia</h3>');
                 }
+
             },
             complete: function(response) {
                 if($.isNumeric(response.responseJSON.favouritePosts.length)) {
@@ -48,7 +55,6 @@
                 $("#next-page").attr("last_page", response.responseJSON.posts.last_page);
                 disableButtonCheck(page, response.responseJSON.posts.last_page);
             }
-
         });
     }
 
@@ -58,13 +64,19 @@
         } else {
             $("#next-page").removeClass("disabled").css('cursor', 'pointer');
         }
-
         if(current_page < 2) {
             $("#previous-page").addClass("disabled").css('cursor', 'default');
         } else {
             $("#previous-page").removeClass("disabled").css('cursor', 'pointer');
         }
     }
+
+    $("#search_name").on("input", function() {
+        var value = $(this).val().toLowerCase();
+        $("#posts-box .post").each(function() {
+            $(this).toggle($(this).text().toLowerCase().includes(value));
+        });
+    });
 
     function scrollTop() {
         $('html, body').animate({
@@ -73,13 +85,13 @@
     }
 
     $('#next-page').click(function (e) {
-            getPosts(++page);
-            scrollTop();
+        getPosts(++page);
+        scrollTop();
     });
 
     $('#previous-page').click(function (e) {
-            getPosts(--page);
-            scrollTop();
+        getPosts(--page);
+        scrollTop();
     });
 
     function getFavouritePosts(postsId, favouritePosts) {
