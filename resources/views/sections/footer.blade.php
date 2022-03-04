@@ -1,7 +1,7 @@
 <footer class="main-footer footer mt-auto py-3 bg-light">
     <div class="container">
      <div class="row">
-         <div class="col-6">
+         <div class="col-6 px-0">
              <div class="content me-2">
                 <span class="fw-bold">Polityka prywatności</span>
                 <p class="text-muted">In pharetra ultricies consectetur. Vivamus ut magna posuere,
@@ -13,7 +13,7 @@
                 </p>
             </div>
          </div>
-         <div class="col-6">
+         <div class="col-6 px-0">
              <div class="content ms-2">
                 <span class="fw-bold">Kontakt</span>
                 <p class="text-muted m-0">
