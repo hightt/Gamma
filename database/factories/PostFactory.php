@@ -17,7 +17,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'content' => $this->faker->realText(200),
+            'content' => $this->faker->realText(rand(100, 1000)),
             'user_id' => User::all()->random()->id,
             'created_at' => now(),
             'updated_at' => now(),
