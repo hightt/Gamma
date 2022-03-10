@@ -46,7 +46,7 @@
         </form>
     </div>
 
-    <div class="row" style="min-height: 525px;">
+    <div class="row">
         <div class="col-12">
             @foreach ($comments as $comment)
                 <div class="post comment">
