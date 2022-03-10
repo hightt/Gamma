@@ -126,9 +126,10 @@
 
    $('.btn-delete').click(function (e) {
         $.ajax({
-            type: "DELETE",
+            type: "POST",
             url: '{{route("posts-ajax.destroy")}}',
             data: {
+                _method: 'DELETE',
                 user_id: $(this).attr('user_id'),
                 post_id: $(this).attr('post_id'),
             },
