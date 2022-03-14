@@ -6,8 +6,8 @@
                     <i class="fa-solid fa-star"></i>
                 </button>
             @if(Auth::check() && Auth::user()->permissions == '1')
-                <button type="submit" class="btn-delete btn bg-danger text-white p-1 ps-2 pe-2 " post_id="" user_id="" data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń post">
-                    <i class="fa-solid fa-trash"></i>
+                <button type="submit" class="btn-delete btn bg-danger text-white p-1 ps-2 pe-2 " post_id="" data-bs-toggle="modal" data-bs-target="#delete_confirm" >
+                    <i class="fa-solid fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Usuń post"></i>
                 </button>
             @endif
         </div>

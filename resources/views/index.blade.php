@@ -27,6 +27,7 @@
                         var post = response.posts.data[i];
                         var el = $('#post-template').clone(true).appendTo('#posts-box');
                         el.css("display", "block");
+                        el.removeAttr('id');
                         el.find('.post-title').text(post.title);
                         el.find('.post-content').text(post.content);
                         el.find('.author').text(post.user.name);
@@ -105,7 +106,7 @@
     $('.btn-add').click(function (e) {
         $.ajax({
             type: "POST",
-            url: '{{route("favourite-post.store")}}',
+            url: '{{route("favourite-posts.store")}}',
             data: {
                 user_id: '{{auth()->user() ? auth()->user()->id : ""}}',
                 post_id: $(this).attr('post_id'),
@@ -124,25 +125,10 @@
         })
    });
 
-   $('.btn-delete').click(function (e) {
-        $.ajax({
-            type: "POST",
-            url: '{{route("posts-ajax.destroy")}}',
-            data: {
-                _method: 'DELETE',
-                user_id: $(this).attr('user_id'),
-                post_id: $(this).attr('post_id'),
-            },
-            success:function(response){
-                showMessage('alert-success', response.success);
-                getPosts(page);
-            },
-            error: function(response){
-                showMessage('alert-danger', response.success);
-                getPosts(page);
-            },
-        })
-   });
+    $('.btn-delete').click(function (e) {
+        console.log($(this).attr('post_id'));
+        $('#delete-confirm').attr('post_id', $(this).attr('post_id'));
+    });
 
 
     getPosts(page);
@@ -150,5 +136,6 @@
     //     getPosts();
     // }, 2500);
 </script>
-
+@include('modals.delete_confirm_modal')
+@include('modals.new_post_modal')
 @endsection
