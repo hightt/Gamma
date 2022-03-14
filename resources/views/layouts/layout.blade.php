@@ -88,7 +88,6 @@
         </div>
     </div>
     @include('sections.footer')
-    @include('modals.new_post_modal')
     @include('modals.register_modal')
     @include('modals.login_modal')
 
