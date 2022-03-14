@@ -43,3 +43,4 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/', function(){
     return redirect(route('posts.index'));
 });
+
