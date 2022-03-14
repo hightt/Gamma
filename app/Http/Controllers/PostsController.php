@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Database\Schema\Builder;
 use Illuminate\Database\Eloquent\Builder;
 class PostsController extends Controller
 {
@@ -21,16 +20,6 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         return view('index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -58,17 +47,6 @@ class PostsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -77,21 +55,16 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update(['title' => $request->post_title, 'content' => $request->post_content]);
+        return back()->with('message', 'Pomyślnie edytowano post!'); ;
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Search for a post.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
-    public function destroy(Post $post)
-    {
-       Post::destroy($post->id);
-    //    return redirect()->route('posts.index')->with('message', 'Pomyślnie usunięto post!'); ;
-    }
-
+    */
     public function search(Request $request)
     {
         $posts = Post::where('title', 'LIKE', '%'. $request->search_name .'%')
@@ -99,6 +72,12 @@ class PostsController extends Controller
         return back()->with('posts', $posts);
     }
 
+    /**
+     * Find all topics created by me.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+    */
     public function myTopics(Request $request)
     {
         if($request->ajax()) {
@@ -107,6 +86,11 @@ class PostsController extends Controller
         return view('sections.my_topics');
     }
 
+    /**
+     * Find all comments created by me.
+     *
+     * @return \Illuminate\Http\Response
+    */
     public function myAnswers()
     {
         $posts = Post::whereHas('comments', function (Builder $query) {
@@ -117,7 +101,4 @@ class PostsController extends Controller
             ->with('posts', $posts);
     }
 
-    // znajdz posty ktore zawieraja moje komentarze
-
-    // $comments = DB::table()
 }
