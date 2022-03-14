@@ -5,7 +5,7 @@
             <i class="fas fa-home me-2"></i>
             <span>Strona główna</span>
         </a>
-        <a class="nav-link mb-2 main-link {{Auth::check() ? '' : 'disabled-link'}}" href="{{Auth::check() ? route('favourite-post.index') : 'javascript: return false;'}}" data-bs-toggle="tooltip" data-bs-placement="left" title="">
+        <a class="nav-link mb-2 main-link {{Auth::check() ? '' : 'disabled-link'}}" href="{{Auth::check() ? route('favourite-posts.index') : 'javascript: return false;'}}" data-bs-toggle="tooltip" data-bs-placement="left" title="">
             <i class="fa-solid fa-star me-2"></i>
             <span>Ulubione</span>
         </a>

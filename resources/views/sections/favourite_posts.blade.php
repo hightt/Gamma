@@ -41,7 +41,7 @@
     $('.btn-add').click(function (e) {
         $.ajax({
             type: "POST",
-            url: '{{route("favourite-post.store")}}',
+            url: '{{route("favourite-posts.store")}}',
             data: {
                 user_id: '{{auth()->user() ? auth()->user()->id : ""}}',
                 post_id: $(this).attr('post_id'),
