@@ -21,26 +21,25 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::resource('/posts', PostsController::class);
-Route::resource('/comments', CommentsController::class);
+Auth::routes();
 
-Route::resource('/favourite-post', FavouritePostsController::class)->except(['create', 'update', 'show', 'edit', 'destroy']);
-Route::get('/favourite-post/get', [FavouritePostsController::class, 'getPosts'])->name('favourite-posts.get');
+Route::resource('/posts', PostsController::class)->except('create', 'edit');
+Route::resource('/comments', CommentsController::class)->only(['store', 'destroy']);
+
+Route::resource('/favourite-posts', FavouritePostsController::class)->only(['index', 'store']);
+Route::get('/favourite-posts/get', [FavouritePostsController::class, 'getPosts'])->name('favourite-posts.get');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/favourite-post', [FavouritePostsController::class, 'index'])->name('favourite-post.index');
+    Route::get('/favourite-posts', [FavouritePostsController::class, 'index'])->name('favourite-posts.index');
     Route::get('/my-answers', [PostsController::class, 'myAnswers'])->name('my-answers');
     Route::get('/my-topics', [PostsController::class, 'myTopics'])->name('my-topics');
 });
 
-Route::resource('/posts-ajax', PostsAjaxController::class)->except(['create', 'update', 'edit', 'show', 'destroy']);
+Route::get('/posts-ajax', [PostsAjaxController::class, 'index'])->name('posts-ajax.index');
 Route::delete('/posts-ajax', [PostsAjaxController::class, 'destroy'])->name('posts-ajax.destroy');
 
 Route::get('/search', [PostsController::class, 'search']);
-
-Auth::routes();
 Route::get('/logout', [LoginController::class, 'logout']);
-
 Route::get('/', function(){
     return redirect(route('posts.index'));
 });
