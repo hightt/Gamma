@@ -1,6 +1,15 @@
 @extends('layouts.layout')
 @section('content')
     <div class="post" style="cursor: unset;">
+        <div class="row" style="min-height: 34px;">
+            <div class="col-md-12 text-end">
+                @if(Auth::check() && (Auth::user()->permissions == '1' || Auth::user()->id == $post->user()->id))
+                    <button type="submit" class="btn-position btn bg-success text-white p-1 ps-2 pe-2 " data-bs-toggle="modal" data-bs-target="#edit_post" >
+                        <i class="fa-solid fa-pen-to-square" data-bs-toggle="tooltip" data-bs-placement="top" title="Edytuj post"></i>
+                    </button>
+                @endif
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
@@ -100,4 +109,5 @@
     <div class="d-flex justify-content-center">
         {!! $comments->links() !!}
     </div>
+    @include('modals.edit_post_modal')
 @endsection
